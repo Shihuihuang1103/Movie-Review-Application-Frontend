@@ -21,17 +21,15 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
         const rev = revText.current;
         try{
             const response = await api.post("/api/v1/reviews", {reviewBody: rev.value, imdbId:movieId});
-            const updateReviews = [...reviews, {body:rev.value}];
+            const updateReviews = reviews != null ? [...reviews, { body: rev.value }]: [{ body: rev.value }];
             rev.value = "";
             setReviews(updateReviews);
-            console.log(body);
         } catch(err)
         {
             console.error(err);
         }
     }
-    console.log(movie?.poster)
-    console.log(reviews)
+    
   return (
     <Container>
         <Row>
@@ -59,7 +57,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                     </>
                 }
                 {
-                    reviews && reviews.map((r)=>{
+                    reviews && reviews?.map((r)=>{
                         return(
                             <>
                                 <Row>
