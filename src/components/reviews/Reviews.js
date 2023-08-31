@@ -5,14 +5,16 @@ import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from '../reviewform/ReviewForm';
 
+
+
 const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
     const revText = useRef();
     let params = useParams();
     const movieId = params.movieId;
 
-    useEffect(()=>{
-        getMovieData(movieId);
-    },[])
+    useEffect(() => {
+            getMovieData(movieId);
+    }, [movieId]);
 
     const addReview = async (e) =>{
         e.preventDefault();
@@ -22,11 +24,14 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
             const updateReviews = [...reviews, {body:rev.value}];
             rev.value = "";
             setReviews(updateReviews);
+            console.log(body);
         } catch(err)
         {
             console.error(err);
         }
     }
+    console.log(movie?.poster)
+    console.log(reviews)
   return (
     <Container>
         <Row>
@@ -34,17 +39,16 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
         </Row>
         <Row className="mt-2">
             <Col>
-                <img src={movie?.poster} alt="" />
+            
+                <img src = {movie?.poster} alt="" />
+            
             </Col>
             <Col>
                 {
                     <>
                         <Row>
                             <Col>
-                                <ReviewForm 
-                                handleSubmit={addReview}
-                                revText = {revText}
-                                labelText = "Please write your review here:" />
+                                <ReviewForm handleSubmit={addReview} revText = {revText} labelText = "Please write your review here:" />
                             </Col>
                         </Row>
                         <Row>
@@ -55,7 +59,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                     </>
                 }
                 {
-                    reviews?.map((r)=>{
+                    reviews && reviews.map((r)=>{
                         return(
                             <>
                                 <Row>

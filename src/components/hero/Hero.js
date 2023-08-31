@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import {Link, useNavigate} from "react-router-dom";
 import { Button } from 'react-bootstrap';
-import reviews from '../reviews/Reviews';
 
 const Hero = ({movies}) => {
 
     const navigate = useNavigate();
     function reviews(movieId){
-        navigate(`/Reviews/$(movieId)`);
+        navigate(`/Reviews/${movieId}`);
     }
   return (
     <div className = 'movie-carousel-container'>
